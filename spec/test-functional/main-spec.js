@@ -21,7 +21,7 @@ xdescribe('Pos machine', function () {
     });
 
     function setupShop() {
-        var shop = new Shop();
+        var shop = new Shop('没钱赚商店');
         shop.store([{
             barcode: 'ITEM000000',
             name: '可口可乐',
