@@ -68,4 +68,17 @@ describe('Shop', function () {
             expect(shop.printReceipt(bill)).toEqual('***<FooShop>购物清单***\nThis is bill text\n**********************');
         });
     });
+
+    describe('#discount', function () {
+        it('pass promotion to bill', function () {
+            var bill = jasmine.createSpyObj('bill', ['applyPromotions']);
+
+            var promotion = require('../fixtures/promotion.json');
+            shop.promotion([promotion]);
+
+            shop.discount(bill);
+
+            expect(bill.applyPromotions).toHaveBeenCalledWith([new Promotion(promotion)]);
+        });
+    });
 });

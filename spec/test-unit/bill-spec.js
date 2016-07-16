@@ -43,4 +43,12 @@ describe('Bill', function () {
             )
         });
     });
+
+    describe('#applyPromotions', function () {
+        it('save promotions', function () {
+            var promotions = [{}];
+            bill.applyPromotions(promotions);
+            expect(bill._promotions).toEqual(promotions);
+        });
+    });
 });

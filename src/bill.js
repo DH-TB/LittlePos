@@ -17,6 +17,11 @@ Bill.prototype.items = function () {
     return this._items;
 };
 
+
+Bill.prototype.applyPromotions = function (promotions) {
+    return this._promotions = promotions;
+};
+
 Bill.prototype.toString = function () {
     return this._items.map(function (basketItems) {
             return basketItems.toString();
