@@ -5,7 +5,12 @@ function Bill() {
 }
 
 Bill.prototype.add = function (item, amount) {
-    this._items.push(new BasketItems(item, amount));
+    var existItem = this._items.filter(function(billItem) { return billItem.item.barcode === item.barcode;}) [0];
+    if(existItem) {
+        existItem.increaseAmount(amount);
+    } else {
+        this._items.push(new BasketItems(item, amount));
+    }
 };
 
 Bill.prototype.items = function () {

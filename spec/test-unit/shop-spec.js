@@ -65,8 +65,6 @@ describe('Shop', function () {
             expect(bill.add.calls.argsFor(0)).toEqual([item0, 2]);
             expect(bill.add.calls.argsFor(1)).toEqual([item1, 1]);
         });
-
-
     });
 
     describe('#printReceipt', function () {

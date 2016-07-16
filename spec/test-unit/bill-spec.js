@@ -14,6 +14,12 @@ describe('Bill', function () {
             bill.add(item0, 1);
             expect(bill._items).toEqual([new BasketItems(item0, 1)]);
         });
+
+        it('add multiple same items', function () {
+            bill.add(item0, 1);
+            bill.add(item0, 2);
+            expect(bill._items).toEqual([new BasketItems(item0, 3)]);
+        });
     });
 
     describe('#items', function () {

@@ -3,6 +3,10 @@ function BasketItems(item, amount) {
     this.amount = amount;
 }
 
+BasketItems.prototype.increaseAmount = function(amount) {
+    return this.amount = this.amount + amount;
+};
+
 BasketItems.prototype.price = function() {
     return this.amount * this.item.price;
 };
