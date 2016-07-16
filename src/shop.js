@@ -10,4 +10,14 @@ Shop.prototype.promotion = function(promotions) {
     this._promotions = promotions;
 };
 
+Shop.prototype.scan = function(bill, items) {
+    items.forEach(function(item) {
+        var itemId = item.split('-')[0];
+        var itemAmount = item.split('-')[1] || 1;
+        for(var i = 0; i< itemAmount; i++) {
+            bill.add(itemId);
+        }
+    });
+};
+
 module.exports = Shop;

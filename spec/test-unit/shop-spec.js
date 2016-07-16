@@ -1,4 +1,5 @@
 var Shop = require('../../src/shop');
+var Bill = require('../../src/bill');
 
 describe('Shop', function () {
     describe('#constructor', function () {
@@ -39,5 +40,35 @@ describe('Shop', function () {
             shop.promotion(promotions);
             expect(shop._promotions).toEqual(promotions);
         });
+    });
+
+    describe('#scan', function () {
+        var shop, bill;
+        beforeEach(function() {
+            shop = new Shop('FooShop');
+            bill = jasmine.createSpyObj('bill', ['add']);
+        });
+        it('inputs single item with 1 amount', function () {
+            shop.scan(bill, ['ITEM000000']);
+            expect(bill.add).toHaveBeenCalledWith('ITEM000000');
+        });
+
+        it('inputs single item with multiple amount', function () {
+            shop.scan(bill, ['ITEM000000-2']);
+            expect(bill.add.calls.count()).toEqual(2);
+            expect(bill.add.calls.argsFor(0)).toEqual(['ITEM000000']);
+            expect(bill.add.calls.argsFor(1)).toEqual(['ITEM000000']);
+        });
+
+        it('inputs multiple items', function () {
+            shop.scan(bill, ['ITEM000000-2', 'ITEM000001']);
+
+            expect(bill.add.calls.count()).toEqual(3);
+            expect(bill.add.calls.argsFor(0)).toEqual(['ITEM000000']);
+            expect(bill.add.calls.argsFor(1)).toEqual(['ITEM000000']);
+            expect(bill.add.calls.argsFor(2)).toEqual(['ITEM000001']);
+        });
+
+
     });
 });
