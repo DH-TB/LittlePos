@@ -2,16 +2,19 @@ var Shop = require('../../src/shop');
 var Bill = require('../../src/bill');
 
 describe('Shop', function () {
+    var shop;
+    beforeEach(function() {
+        shop = new Shop('FooShop');
+    });
+
     describe('#constructor', function () {
         it('has name', function () {
-            var shop = new Shop('FooShop');
             expect(shop._name).toEqual('FooShop');
         });
     });
 
     describe('#store', function () {
         it('stores items', function () {
-            var shop = new Shop('FooShop');
             var items = [{
                 barcode: 'ITEM000000',
                 name: '可口可乐',
@@ -28,7 +31,6 @@ describe('Shop', function () {
 
     describe('#promotion', function () {
         it('has promotion', function () {
-            var shop = new Shop('FooShop');
             var promotions = [{
                 type: 'BUY_THREE_GET_ONE_FREE',
                 name: '买三免一',
@@ -43,9 +45,8 @@ describe('Shop', function () {
     });
 
     describe('#scan', function () {
-        var shop, bill;
+        var bill;
         beforeEach(function() {
-            shop = new Shop('FooShop');
             bill = jasmine.createSpyObj('bill', ['add']);
         });
         it('inputs single item with 1 amount', function () {
@@ -70,5 +71,13 @@ describe('Shop', function () {
         });
 
 
+    });
+
+    describe('#printReceipt', function () {
+        it('prints bill text', function () {
+            var bill = jasmine.createSpyObj('bill', ['toString']);
+            bill.toString.and.returnValue('This is bill text');
+            expect(shop.printReceipt(bill)).toEqual('***<FooShop>购物清单***\nThis is bill text\n**********************');
+        });
     });
 });

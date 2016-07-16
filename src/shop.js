@@ -20,4 +20,10 @@ Shop.prototype.scan = function(bill, items) {
     });
 };
 
+Shop.prototype.printReceipt = function(bill) {
+    return '***<' + this._name + '>购物清单***\n' +
+            bill.toString() + '\n' +
+            '**********************'
+};
+
 module.exports = Shop;
