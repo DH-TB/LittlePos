@@ -18,8 +18,13 @@ Bill.prototype.items = function () {
 };
 
 
-Bill.prototype.applyPromotions = function (promotions) {
-    return this._promotions = promotions;
+Bill.prototype.applyPromotion = function (promotion) {
+    this._promotion = promotion;
+    this._items.forEach(function(item) {
+        if(promotion.checkItem(item)) {
+            promotion.discountStrategy(item);
+        }
+    });
 };
 
 Bill.prototype.toString = function () {

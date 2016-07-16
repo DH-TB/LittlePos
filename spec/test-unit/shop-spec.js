@@ -31,8 +31,8 @@ describe('Shop', function () {
     describe('#promotion', function () {
         it('has promotion', function () {
             var promotion = require('../fixtures/promotion.json');
-            shop.promotion([promotion]);
-            expect(shop._promotions).toEqual([new Promotion(promotion)]);
+            shop.promotion(promotion);
+            expect(shop._promotion).toEqual(new Promotion(promotion));
         });
     });
 
@@ -71,14 +71,14 @@ describe('Shop', function () {
 
     describe('#discount', function () {
         it('pass promotion to bill', function () {
-            var bill = jasmine.createSpyObj('bill', ['applyPromotions']);
+            var bill = jasmine.createSpyObj('bill', ['applyPromotion']);
 
             var promotion = require('../fixtures/promotion.json');
-            shop.promotion([promotion]);
+            shop.promotion(promotion);
 
             shop.discount(bill);
 
-            expect(bill.applyPromotions).toHaveBeenCalledWith([new Promotion(promotion)]);
+            expect(bill.applyPromotion).toHaveBeenCalledWith(new Promotion(promotion));
         });
     });
 });

@@ -44,11 +44,16 @@ describe('Bill', function () {
         });
     });
 
-    describe('#applyPromotions', function () {
-        it('save promotions', function () {
-            var promotions = [{}];
-            bill.applyPromotions(promotions);
-            expect(bill._promotions).toEqual(promotions);
+    describe('#applyPromotion', function () {
+        it('save promotion', function () {
+            var promotion = jasmine.createSpyObj('promotion', ['checkItem', 'discountStrategy']);
+            promotion.checkItem.and.callFake(function(basketItem) { return basketItem.item === item0; });
+            bill.add(item0, 1);
+            bill.add(item1, 2);
+            bill.applyPromotion(promotion);
+            expect(bill._promotion).toEqual(promotion);
+            expect(promotion.discountStrategy.calls.mostRecent().args[0].item).toEqual(item0);
+
         });
     });
 });

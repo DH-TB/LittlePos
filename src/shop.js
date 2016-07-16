@@ -8,8 +8,8 @@ Shop.prototype.store = function(items) {
     this._items = items;
 };
 
-Shop.prototype.promotion = function(promotions) {
-    this._promotions = promotions.map(function(p) { return new Promotion(p);});
+Shop.prototype.promotion = function(promotion) {
+    this._promotion = new Promotion(promotion);
 };
 
 Shop.prototype.scan = function(bill, items) {
@@ -23,7 +23,7 @@ Shop.prototype.scan = function(bill, items) {
 };
 
 Shop.prototype.discount = function(bill) {
-    bill.applyPromotions(this._promotions);
+    bill.applyPromotion(this._promotion);
 };
 
 Shop.prototype.printReceipt = function(bill) {
