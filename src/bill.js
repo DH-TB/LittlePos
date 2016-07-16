@@ -2,10 +2,10 @@ function Bill() {
     this._items = [];
 }
 
-Bill.prototype.add = function(item) {
+Bill.prototype.add = function(item, amount) {
     this._items.push({
-        itemId: item,
-        itemAmount: 1
+        item: item,
+        amount: amount
     });
 };
 Bill.prototype.items = function() {

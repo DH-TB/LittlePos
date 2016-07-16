@@ -3,8 +3,11 @@ var Bill = require('../../src/bill');
 
 describe('Shop', function () {
     var shop;
+    var item0, item1;
     beforeEach(function() {
         shop = new Shop('FooShop');
+        item0 = require('../fixtures/item000000.json');
+        item1 = require('../fixtures/item000001.json');
     });
 
     describe('#constructor', function () {
@@ -43,30 +46,24 @@ describe('Shop', function () {
         var bill;
         beforeEach(function() {
             bill = jasmine.createSpyObj('bill', ['add']);
-            shop.store([
-                require('../fixtures/item000000.json'),
-                require('../fixtures/item000001.json')
-            ])
+            shop.store([item0, item1]);
         });
         it('inputs single item with 1 amount', function () {
             shop.scan(bill, ['ITEM000000']);
-            expect(bill.add).toHaveBeenCalledWith('ITEM000000');
+            expect(bill.add).toHaveBeenCalledWith(item0, 1);
         });
 
         it('inputs single item with multiple amount', function () {
             shop.scan(bill, ['ITEM000000-2']);
-            expect(bill.add.calls.count()).toEqual(2);
-            expect(bill.add.calls.argsFor(0)).toEqual(['ITEM000000']);
-            expect(bill.add.calls.argsFor(1)).toEqual(['ITEM000000']);
+            expect(bill.add).toHaveBeenCalledWith(item0, 2);
         });
 
         it('inputs multiple items', function () {
             shop.scan(bill, ['ITEM000000-2', 'ITEM000001']);
 
-            expect(bill.add.calls.count()).toEqual(3);
-            expect(bill.add.calls.argsFor(0)).toEqual(['ITEM000000']);
-            expect(bill.add.calls.argsFor(1)).toEqual(['ITEM000000']);
-            expect(bill.add.calls.argsFor(2)).toEqual(['ITEM000001']);
+            expect(bill.add.calls.count()).toEqual(2);
+            expect(bill.add.calls.argsFor(0)).toEqual([item0, 2]);
+            expect(bill.add.calls.argsFor(1)).toEqual([item1, 1]);
         });
 
 
