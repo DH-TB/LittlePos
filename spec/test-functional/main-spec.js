@@ -23,28 +23,11 @@ xdescribe('Pos machine', function () {
 
     function setupShop() {
         var shop = new Shop('没钱赚商店');
-        shop.store([{
-            barcode: 'ITEM000000',
-            name: '可口可乐',
-            unit: '瓶',
-            category: '食品',
-            subCategory: '碳酸饮料',
-            price: 3.00
-        }, {
-            barcode: 'ITEM000001',
-            name: '羽毛球',
-            unit: '个',
-            category: '运动器材',
-            subCategory: '羽毛球',
-            price: 1.00
-        }, {
-            barcode: 'ITEM000002',
-            name: '苹果',
-            unit: '斤',
-            category: '食品',
-            subCategory: '水果',
-            price: 1.00
-        }]);
+        shop.store([
+            require('../fixtures/item000000.json'),
+            require('../fixtures/item000001.json'),
+            require('../fixtures/item000002.json')
+        ]);
         shop.promotion([{
             type: 'BUY_THREE_GET_ONE_FREE',
             name: '买三免一',

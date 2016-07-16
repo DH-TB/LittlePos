@@ -15,14 +15,9 @@ describe('Shop', function () {
 
     describe('#store', function () {
         it('stores items', function () {
-            var items = [{
-                barcode: 'ITEM000000',
-                name: '可口可乐',
-                unit: '瓶',
-                category: '食品',
-                subCategory: '碳酸饮料',
-                price: 3.00
-            }];
+            var items = [
+                require('../fixtures/item000000.json')
+            ];
             shop.store(items);
 
             expect(shop._items).toEqual(items);
@@ -48,6 +43,10 @@ describe('Shop', function () {
         var bill;
         beforeEach(function() {
             bill = jasmine.createSpyObj('bill', ['add']);
+            shop.store([
+                require('../fixtures/item000000.json'),
+                require('../fixtures/item000001.json')
+            ])
         });
         it('inputs single item with 1 amount', function () {
             shop.scan(bill, ['ITEM000000']);
