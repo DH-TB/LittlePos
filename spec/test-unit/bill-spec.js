@@ -1,4 +1,5 @@
 var Bill = require('../../src/bill');
+var BasketItems = require('../../src/basket-items');
 
 describe('Bill', function () {
     var item0, item1;
@@ -11,10 +12,7 @@ describe('Bill', function () {
         it('add single item', function () {
             var bill = new Bill();
             bill.add(item0, 1);
-            expect(bill._items).toEqual([{
-                item: item0,
-                amount: 1
-            }]);
+            expect(bill._items).toEqual([new BasketItems(item0, 1)]);
         });
     });
 
@@ -23,10 +21,7 @@ describe('Bill', function () {
             var bill = new Bill();
             bill.add(item0, 2);
 
-            expect(bill.items()).toEqual([{
-                item: item0,
-                amount: 2
-            }]);
+            expect(bill.items()).toEqual([new BasketItems(item0, 2)]);
         });
     });
 });
