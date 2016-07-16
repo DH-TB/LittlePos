@@ -46,6 +46,7 @@ xdescribe('Pos machine', function () {
         }]);
         shop.promotion([{
             type: 'BUY_THREE_GET_ONE_FREE',
+            name: '买三免一',
             barcodes: [
                 'ITEM000000',
                 'ITEM000001'
