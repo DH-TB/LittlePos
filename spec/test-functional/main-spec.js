@@ -1,10 +1,11 @@
 xdescribe('Pos machine', function () {
     it('prints receipt', function () {
         var shop = setupShop();
+        var bill = setupBill();
 
-        shop.scan(['ITEM000000-3', 'ITEM000001-5', 'ITEM000002-2']);
+        shop.scan(bill, ['ITEM000000-3', 'ITEM000001-5', 'ITEM000002-2']);
 
-        expect(shop.printReceipt()).toEqual(
+        expect(shop.printReceipt(bill)).toEqual(
             "***<没钱赚商店>购物清单***\n" +
             "名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)，优惠3.00(元)\n" +
             "名称：羽毛球，数量：5个，单价：1.00(元)，小计：4.00(元)，优惠1.00(元)\n" +
@@ -53,5 +54,9 @@ xdescribe('Pos machine', function () {
             ]
         }]);
         return shop;
+    }
+
+    function setupBill() {
+        return new Bill();
     }
 });
