@@ -3,6 +3,10 @@ function BasketItems(item, amount) {
     this.amount = amount;
 }
 
+BasketItems.prototype.price = function() {
+    return this.amount * this.item.price;
+};
+
 BasketItems.prototype.toString = function() {
     return '名称：' + this.item.name + '，' +
         '数量：' + this.amount + this.item.unit + '，' +
