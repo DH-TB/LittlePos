@@ -1,4 +1,8 @@
-xdescribe('Pos machine', function () {
+var Shop = require('../../src/shop');
+var Bill = require('../../src/bill');
+var Promotion = require('../../src/promotion');
+
+describe('Pos machine', function () {
     it('prints receipt', function () {
         var shop = setupShop();
         var bill = setupBill();
@@ -30,14 +34,7 @@ xdescribe('Pos machine', function () {
             require('../fixtures/item000001.json'),
             require('../fixtures/item000002.json')
         ]);
-        shop.promotion([{
-            type: 'BUY_THREE_GET_ONE_FREE',
-            name: '买三免一',
-            barcodes: [
-                'ITEM000000',
-                'ITEM000001'
-            ]
-        }]);
+        shop.promotion(require('../fixtures/promotion.json'));
         return shop;
     }
 

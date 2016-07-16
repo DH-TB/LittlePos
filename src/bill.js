@@ -28,16 +28,34 @@ Bill.prototype.applyPromotion = function (promotion) {
 };
 
 Bill.prototype.toString = function () {
-    return this._items.map(function (basketItems) {
-            return basketItems.toString();
-        }).join('\n') +
-        '\n----------------------\n' +
-        '总计：' + this._totalPrice().toFixed(2) + '(元)';
+    var lineText = '\n----------------------\n';
+
+    var itemInfoText = this._items.map(function (basketItems) {
+        return basketItems.toString();
+    }).join('\n');
+
+    var totalDiscount = this._totalDiscount();
+    var discountDetails =  totalDiscount ? '单品打折商品：\n' + this._items.filter(function(basketItems) {
+        return basketItems.getDiscount();
+    }).map(function(basketItems) {
+        return basketItems.discountDetails();
+    }).join('\n') + lineText : '';
+
+    var totalPrice = '总计：' + this._totalPrice().toFixed(2) + '(元)';
+
+    var discountPrice = totalDiscount ? '\n节省：' + totalDiscount.toFixed(2) + '(元)' : '';
+    return itemInfoText + lineText + discountDetails + totalPrice + discountPrice;
 };
 
 Bill.prototype._totalPrice = function () {
     return this._items.reduce(function(total, current) {
         return total + current.price();
+    }, 0);
+};
+
+Bill.prototype._totalDiscount = function () {
+    return this._items.reduce(function(total, current) {
+        return total + current.getDiscount();
     }, 0);
 };
 

@@ -31,7 +31,7 @@ describe('Bill', function () {
     });
 
     describe('#toString', function () {
-        it('print items info and total price', function () {
+        it('print items info and total price without discount', function () {
             bill.add(item0, 3);
             bill.add(item1, 5);
 
@@ -40,7 +40,27 @@ describe('Bill', function () {
                 '名称：羽毛球，数量：5个，单价：1.00(元)，小计：5.00(元)\n' +
                 '----------------------\n' +
                 "总计：14.00(元)"
-            )
+            );
+        });
+        it('print items info and total price with discount', function () {
+            var promotion = jasmine.createSpyObj('promotion', ['checkItem', 'discountStrategy']);
+            promotion.checkItem.and.callFake(function(basketItem) { return basketItem.item === item0; });
+            promotion.discountStrategy.and.callFake(function (basketItem) {basketItem.setDiscount(3, '买三免一')});
+
+            bill.add(item0, 3);
+            bill.add(item1, 5);
+            bill.applyPromotion(promotion);
+
+            expect(bill.toString()).toEqual(
+                '名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)，优惠3.00(元)\n' +
+                '名称：羽毛球，数量：5个，单价：1.00(元)，小计：5.00(元)\n' +
+                '----------------------\n' +
+                '单品打折商品：\n' +
+                '名称：可口可乐，折扣：买三免一\n' +
+                '----------------------\n' +
+                '总计：11.00(元)\n' +
+                '节省：3.00(元)'
+            );
         });
     });
 

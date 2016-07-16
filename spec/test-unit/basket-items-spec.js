@@ -17,6 +17,14 @@ describe('BasketItems', function () {
         expect(basketItems.toString()).toEqual('名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：9.00(元)');
     });
 
+    it('returns correct item text with discount', function () {
+        var basketItems = new BasketItems(item0, 3);
+        basketItems.setDiscount(3, 'name');
+        expect(basketItems.discount).toEqual(3);
+        expect(basketItems.discountName).toEqual('name');
+        expect(basketItems.toString()).toEqual('名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)，优惠3.00(元)');
+    });
+
     it('calculate price', function () {
         var basketItems = new BasketItems(item0, 3);
         expect(basketItems.price()).toEqual(9);

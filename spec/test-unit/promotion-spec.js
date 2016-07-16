@@ -15,12 +15,16 @@ describe('Promotion', function () {
 
     it('constructor', function () {
         expect(promotion._promotion).toEqual(promotionData);
-        expect(DiscountStrategyFactory.create).toHaveBeenCalledWith('BUY_THREE_GET_ONE_FREE');
-        expect(promotion.discountStrategy).toEqual(mockStrategy);
     });
 
     it('detects item need discount or not', function () {
         expect(promotion.checkItem(basketItem1)).toBeTruthy();
         expect(promotion.checkItem(basketItem2)).toBeFalsy();
+    });
+
+    it('runs strategy', function () {
+        promotion.discountStrategy(0);
+        expect(DiscountStrategyFactory.create).toHaveBeenCalledWith('BUY_THREE_GET_ONE_FREE');
+        expect(mockStrategy).toHaveBeenCalledWith(0, '买三免一');
     });
 });
