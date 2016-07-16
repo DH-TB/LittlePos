@@ -5,6 +5,8 @@ xdescribe('Pos machine', function () {
 
         shop.scan(bill, ['ITEM000000-3', 'ITEM000001-5', 'ITEM000002-2']);
 
+        shop.discount(bill);
+
         expect(shop.printReceipt(bill)).toEqual(
             "***<没钱赚商店>购物清单***\n" +
             "名称：可口可乐，数量：3瓶，单价：3.00(元)，小计：6.00(元)，优惠3.00(元)\n" +

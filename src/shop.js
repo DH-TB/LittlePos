@@ -1,3 +1,5 @@
+var Promotion = require('./promotion');
+
 function Shop(name) {
     this._name = name;
 }
@@ -7,7 +9,7 @@ Shop.prototype.store = function(items) {
 };
 
 Shop.prototype.promotion = function(promotions) {
-    this._promotions = promotions;
+    this._promotions = promotions.map(function(p) { return new Promotion(p);});
 };
 
 Shop.prototype.scan = function(bill, items) {
@@ -23,7 +25,7 @@ Shop.prototype.scan = function(bill, items) {
 Shop.prototype.printReceipt = function(bill) {
     return '***<' + this._name + '>购物清单***\n' +
             bill.toString() + '\n' +
-            '**********************'
+            '**********************';
 };
 
 Shop.prototype._getItem = function(barcode) {

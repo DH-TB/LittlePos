@@ -1,5 +1,6 @@
 var Shop = require('../../src/shop');
 var Bill = require('../../src/bill');
+var Promotion = require('../../src/promotion');
 
 describe('Shop', function () {
     var shop;
@@ -29,16 +30,9 @@ describe('Shop', function () {
 
     describe('#promotion', function () {
         it('has promotion', function () {
-            var promotions = [{
-                type: 'BUY_THREE_GET_ONE_FREE',
-                name: '买三免一',
-                barcodes: [
-                    'ITEM000000',
-                    'ITEM000001'
-                ]
-            }];
-            shop.promotion(promotions);
-            expect(shop._promotions).toEqual(promotions);
+            var promotion = require('../fixtures/promotion.json');
+            shop.promotion([promotion]);
+            expect(shop._promotions).toEqual([new Promotion(promotion)]);
         });
     });
 
